@@ -32,7 +32,7 @@ export const addAttendence = (userData) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.post(' http://3.86.184.176:4000/api/v1/employee/attendance', userData, config);
+        const { data } = await axios.post(' https://3.86.184.176/api/v1/employee/attendance', userData, config);
 
         dispatch({
             type: ADD_ATTENDENCE_SUCCESS,
@@ -52,7 +52,7 @@ export const myAttendence = (page, month, year) => async (dispatch) => {
     try {
         dispatch({ type: GET_ATTENDENCE_REQUEST });
 
-        const x = await axios.get(` http://3.86.184.176:4000/api/v1/employee/attendance/mylist/${month + 1}/${year}?page=${page}`, {
+        const x = await axios.get(` https://3.86.184.176/api/v1/employee/attendance/mylist/${month + 1}/${year}?page=${page}`, {
             withCredentials: true
         });
 
@@ -75,7 +75,7 @@ export const updateAllowances = (data, employee, attendanceYear, attendanceMonth
     try {
         dispatch({ type: UPDATE_ALLOWANCE_REQUEST });
 
-        const x = await axios.post(` http://3.86.184.176:4000/api/v1/employee/allowances`, {
+        const x = await axios.post(` https://3.86.184.176/api/v1/employee/allowances`, {
             data: data, employee: employee, attendanceYear: attendanceYear, attendanceMonth: attendanceMonth
         }, {
             withCredentials: true
@@ -104,7 +104,7 @@ export const myEmployeeAttendence = (employee, month, year) => async (dispatch) 
     try {
         dispatch({ type: GET_SINGLE_ATTENDENCE_REQUEST });
 
-        const { data } = await axios.get(` http://3.86.184.176:4000/api/v1/employee/attendance/mylist/${month + 1}/${year}/${employee}`, {
+        const { data } = await axios.get(` https://3.86.184.176/api/v1/employee/attendance/mylist/${month + 1}/${year}/${employee}`, {
             withCredentials: true
         });
 
@@ -132,7 +132,7 @@ export const myEmployeeAttendenceOvertime = (employee, attendanceMonth, attendan
             }
         };
         const { data } = await axios.post(
-            ` http://3.86.184.176:4000/api/v1/employee/attendance/updateovertime`,
+            ` https://3.86.184.176/api/v1/employee/attendance/updateovertime`,
             { employee, attendanceMonth, attendanceYear, overtime, date },
             config
         );

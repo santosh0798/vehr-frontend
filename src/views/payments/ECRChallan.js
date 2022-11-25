@@ -91,7 +91,7 @@ const ECRChallan = () => {
     React.useEffect(() => {
         axios
             .get(
-                `http://3.86.184.176:4000/api/v1/employee/attendance/mylist/${date.getMonth() + 1}/${date.getFullYear()}?limit=${9999999999}`,
+                `https://3.86.184.176/api/v1/employee/attendance/mylist/${date.getMonth() + 1}/${date.getFullYear()}?limit=${9999999999}`,
                 {
                     withCredentials: true
                 }
