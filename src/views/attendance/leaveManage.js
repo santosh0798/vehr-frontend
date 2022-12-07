@@ -41,7 +41,7 @@ const LeaveManage = () => {
         dispatch(getCompany());
 
         async function getAtt() {
-            const x = await axios.get(` http://54.145.254.42:4000/api/v1/employee/attendance/mylist/${date.getFullYear()}?page=${page}`, {
+            const x = await axios.get(` https://54.145.254.42:4000/api/v1/employee/attendance/mylist/${date.getFullYear()}?page=${page}`, {
                 withCredentials: true
             });
             console.log(x.data);

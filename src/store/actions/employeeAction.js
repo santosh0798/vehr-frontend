@@ -71,7 +71,7 @@ export const addEmployee = (userData) => async (dispatch) => {
                 aboveBasic: userData.aboveBasic
             }
         };
-        const { data } = await axios.post(' http://54.145.254.42:4000/api/v1/employees/new', y, config);
+        const { data } = await axios.post(' https://54.145.254.42:4000/api/v1/employees/new', y, config);
         toast.success('Details Submitted Successfully!');
         dispatch({
             type: ADD_EMPLOYEE_SUCCESS,
@@ -91,7 +91,7 @@ export const myEmployee = (page, limit) => async (dispatch) => {
     try {
         dispatch({ type: MY_EMPLOYEE_REQUEST });
 
-        const { data } = await axios.get(`http://54.145.254.42:4000/api/v1/employees/mylist?page=${page}${limit && '&limit=' + limit}`, {
+        const { data } = await axios.get(`https://54.145.254.42:4000/api/v1/employees/mylist?page=${page}${limit && '&limit=' + limit}`, {
             withCredentials: true
         });
         console.log(data);
@@ -117,7 +117,7 @@ export const addRoles = (userData) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.post(' http://54.145.254.42:4000/api/v1/admin/register', userData, config);
+        const { data } = await axios.post(' https://54.145.254.42:4000/api/v1/admin/register', userData, config);
         dispatch({
             type: ADD_ROLES_SUCCESS,
             payload: data

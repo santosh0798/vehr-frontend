@@ -76,7 +76,7 @@ const ManageShift = () => {
         console.log(selectFile);
         if (csvtype === 1) {
             axios
-                .post('http://54.145.254.42:4000/api/v1/employee/attendance/csv', csvData, config)
+                .post('https://54.145.254.42:4000/api/v1/employee/attendance/csv', csvData, config)
                 .then((res) => {
                     console.log(res);
                     settext('File upload successfully!');
@@ -105,7 +105,7 @@ const ManageShift = () => {
 
         if (csvtype === 2) {
             axios
-                .post('http://54.145.254.42:4000/api/v1/employee/attendance/csvbulk', csvData, config)
+                .post('https://54.145.254.42:4000/api/v1/employee/attendance/csvbulk', csvData, config)
                 .then((res) => {
                     console.log(res);
                     settext('File upload successfully!');
