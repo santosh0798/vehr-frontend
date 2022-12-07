@@ -16,6 +16,7 @@ import formatDate from 'utils/date-format';
 import { Link } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import BasicSwitch from "../../ui-component/switch";
+import MachineSwitch from 'ui-component/machineSwitch';
 
 // ==============================|| VIEW ATTENDENCE PAGE ||============================== //
 
@@ -164,12 +165,11 @@ const MachineAttendance = () => {
                                         {showsetails === true && <TableCell align="center">{ot}</TableCell>}
 
                                         <TableCell align="center">
-                                            <BasicSwitch
-                                                // disabled={false}
-                                                // page={page}
-                                                // date={date}
-                                                // index={index}
-                                                //This radi
+                                            <MachineSwitch
+                                                data={row}
+                                                page={page}
+                                                date={date}
+                                                index={index}
                                             />
                                         </TableCell>
                                         <TableCell align="center">

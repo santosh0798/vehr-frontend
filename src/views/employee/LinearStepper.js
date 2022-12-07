@@ -988,7 +988,7 @@ const LinaerStepper = () => {
         };
         console.log(selectFile);
         axios
-            .post('https://3.86.184.176/api/v1/employees/csv', csvData, config)
+            .post('http://54.145.254.42:4000/api/v1/employees/csv', csvData, config)
             .then((res) => {
                 console.log(res);
                 toast.success('CSV uploaded successfully!');
@@ -1020,7 +1020,7 @@ const LinaerStepper = () => {
                 return;
             }
             dispatch(addEmployee(methods.getValues()));
-            fetch('https://3.86.184.176/api/v1/employees/new')
+            fetch('http://54.145.254.42:4000/api/v1/employees/new')
                 .then((data) => data.json())
                 .then((res) => {
                     console.log(res);

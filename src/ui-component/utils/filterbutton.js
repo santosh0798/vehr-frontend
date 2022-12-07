@@ -6,6 +6,11 @@ import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 // import { myEmployee } from 'store/actions/employeeAction';
 import axios from 'axios';
+import {Box} from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 // export function FilterButton() {
 //     return (
@@ -79,7 +84,7 @@ export function DownloadCsv(props) {
     React.useEffect(() => {
         axios
             .get(
-                `https://3.86.184.176/api/v1/employee/attendance/mylist/${date.getMonth() + 1}/${date.getFullYear()}?limit=${9999999999}`,
+                `http://54.145.254.42:4000/api/v1/employee/attendance/mylist/${date.getMonth() + 1}/${date.getFullYear()}?limit=${9999999999}`,
                 {
                     withCredentials: true
                 }
@@ -134,7 +139,7 @@ export function DownloadCsv(props) {
 
     useEffect(() => {
         const func = async () => {
-            const { data } = await axios.get(`https://3.86.184.176/api/v1/employees/mylist?page=${page}&limit=${99999999}`, {
+            const { data } = await axios.get(`http://54.145.254.42:4000/api/v1/employees/mylist?page=${page}&limit=${99999999}`, {
                 withCredentials: true
             });
             setorders(data);
@@ -287,6 +292,66 @@ export function WagesStatementFormat(props) {
         </div>
     );
 }
+export function WeeklyReportFormat(props) {
+    const { parentCallback3 } = props;
+    return (
+        <div>
+            <button type="button" className="gray-button" onClick={parentCallback3}>
+                <FileDownloadOutlinedIcon />
+                Report
+            </button>
+        </div>
+    );
+}
+export function LeaveReportFilter(props) {
+    const { parentCallback3 } = props;
+    return (
+        <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Leave Report</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Select Action"
+                    // onChange={handleChange}
+                >
+                    <MenuItem value="All">All</MenuItem>
+                    <MenuItem value="PL">Paid Leave</MenuItem>
+                    <MenuItem value="PL">Sick Leave</MenuItem>
+                    <MenuItem value="PL">Casual Leave</MenuItem>
+                    <MenuItem value="PL">Accident Leave</MenuItem>
+                    <MenuItem value="PL">Maternity Leave</MenuItem>
+                    <MenuItem value="PL">Leave with Permission</MenuItem>
+                    <MenuItem value="PL">Leave without Permission</MenuItem>
+
+                </Select>
+            </FormControl>
+        </Box>
+    );
+}
+
+export function AbsenteesFilter(props) {
+    const { parentCallback3 } = props;
+    return (
+        <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Absentees Filter</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Absentees Filter"
+                    // onChange={handleChange}
+                >
+                    <MenuItem value="All">All</MenuItem>
+                    <MenuItem value="AWP">Absent with Permission</MenuItem>
+                    <MenuItem value="AWOP">Absent without Permission</MenuItem>
+
+                </Select>
+            </FormControl>
+        </Box>
+    );
+}
+
 
 export function LeaveFormat(props) {
     const { parentCallback3, name } = props;
@@ -299,3 +364,4 @@ export function LeaveFormat(props) {
         </div>
     );
 }
+

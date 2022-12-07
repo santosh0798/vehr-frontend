@@ -10,7 +10,15 @@ import TextField from '@mui/material/TextField';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { DownloadCsv, LeaveFormat, SalaryStatement, SalaryStatementFormat, WagesStatementFormat } from './utils/filterbutton';
+import {
+    AbsenteesFilter,
+    DownloadCsv,
+    LeaveFormat, LeaveReportFilter,
+    SalaryStatement,
+    SalaryStatementFormat,
+    WagesStatementFormat,
+    WeeklyReportFormat
+} from './utils/filterbutton';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -24,6 +32,7 @@ export default function AttendanceTopbar(props) {
         date,
         csv,
         salary,
+        weeklyOff,
         parentCallback,
         csvpage,
         parentCallback2,
@@ -37,7 +46,9 @@ export default function AttendanceTopbar(props) {
         search,
         csvdata,
         wagesformat,
-        downloadButton
+        leaveFilter,
+        downloadButton,
+        absenteesFilter
     } = props;
 
     const [value, setValue] = React.useState(new Date());
@@ -69,6 +80,17 @@ export default function AttendanceTopbar(props) {
                                 <SearchSection />
                             </StyledTableCell>
                         )}
+                        {leaveFilter === 'true' && (
+                            <StyledTableCell align="center">
+                                <LeaveReportFilter parentCallback={parentCallback} />
+                            </StyledTableCell>
+                        )}
+                        {absenteesFilter === 'true' && (
+                            <StyledTableCell align="center">
+                                <AbsenteesFilter parentCallback={parentCallback} />
+                            </StyledTableCell>
+                        )}
+
                         {date === 'true' && (
                             <StyledTableCell align="center">
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -93,6 +115,7 @@ export default function AttendanceTopbar(props) {
                                 </LocalizationProvider>
                             </StyledTableCell>
                         )}
+
                         {salaryformat === 'true' && (
                             <StyledTableCell align="center">
                                 <SalaryStatementFormat parentCallback3={parentCallback3} />
@@ -106,6 +129,11 @@ export default function AttendanceTopbar(props) {
                         {salary === 'true' && (
                             <StyledTableCell align="center">
                                 <SalaryStatement parentCallback={parentCallback} />
+                            </StyledTableCell>
+                        )}
+                        {weeklyOff === 'true' && (
+                            <StyledTableCell align="center">
+                                <WeeklyReportFormat parentCallback={parentCallback} />
                             </StyledTableCell>
                         )}
                         {csv === 'true' && (

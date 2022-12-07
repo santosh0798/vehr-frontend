@@ -14,7 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import { ADD_ROLES_RESET } from '../../store/constant/employeeConstant';
 import { getCompany, updateCompany } from '../../store/actions/companyAction';
 import { useForm, Controller, FormProvider, useFormContext } from 'react-hook-form';
-
+import { TimePicker } from '@mui/lab';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -36,6 +38,10 @@ export default function CompanyProfile() {
     const [companyName, setCompanyName] = useState('');
     const [companyAdd, setCompanyAdd] = useState('');
     const [designation, setDesignation] = useState('');
+    const [companyInTime, setCompanyInTime] = useState(new Date());
+    const [companyOutTime, setCompanyOutTime] = useState(new Date());
+
+    console.log(companyOutTime)
 
     const dispatch = useDispatch();
     const { error, orders } = useSelector((state) => state.myCompany);
@@ -54,7 +60,8 @@ export default function CompanyProfile() {
         setBonusPer(orders?.user?.bonusPercentage);
         setValue(orders?.user?.wages[orders?.user?.wages?.length - 1]?.bonasFrom);
         setDesignation(orders?.user?.wages[orders?.user?.wages?.length - 1]?.designation);
-
+        setCompanyInTime(orders?.user?.companyInTime)
+        setCompanyOutTime(orders?.user?.companyOutTime)
         setCompanyAdd(orders?.user?.companyAddress);
     }, [orders]);
 
@@ -69,8 +76,9 @@ export default function CompanyProfile() {
         x.bonasFrom = e.target.elements.date.value;
         x.companyAddress = e.target.elements.companyAdd.value;
         x.designation = e.target.elements.designation.value;
+        x.companyInTime = companyInTime;
+        x.companyOutTime = companyOutTime;
 
-        console.log(x);
         dispatch(updateCompany(x));
     };
 
@@ -172,6 +180,32 @@ export default function CompanyProfile() {
                                     value={companyAdd}
                                     onChange={(e) => setCompanyAdd(e.target.value)}
                                 />
+                            </Grid>
+
+                            <Grid item xs={6} sm={6}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <TimePicker
+                                        label="Company entry time"
+                                        value={companyInTime}
+                                        onChange={(e) => { setCompanyInTime(e) }}
+                                        renderInput={(params) => <TextField
+                                            fullWidth
+                                            {...params} />}
+                                    />
+                                </LocalizationProvider>
+                            </Grid>
+                            <Grid item xs={6} sm={6}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <TimePicker
+                                        label="Company exit time"
+                                        value={companyOutTime}
+                                        fullWidth
+                                        onChange={(e) => { setCompanyOutTime(e) }}
+                                        renderInput={(params) => <TextField
+                                            fullWidth
+                                            {...params} />}
+                                    />
+                                </LocalizationProvider>
                             </Grid>
                             <Grid item xs={5} sm={12}>
                                 <ColorButton variant="contained" type="submit">

@@ -23,7 +23,7 @@ export const updateCompany = (userData) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.put(' https://3.86.184.176/api/v1/company/update', userData, config);
+        const { data } = await axios.put(' http://54.145.254.42:4000/api/v1/company/update', userData, config);
         dispatch({
             type: UPDATE_COMPANY_SUCCESS,
             payload: data
@@ -49,7 +49,7 @@ export const getCompany = () => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.get(' https://3.86.184.176/api/v1/company/mylist', config);
+        const { data } = await axios.get(' http://54.145.254.42:4000/api/v1/company/mylist', config);
         dispatch({
             type: GET_COMPANY_SUCCESS,
             payload: data
@@ -74,7 +74,7 @@ export const updateCompanyAllowance = (data) => async (dispatch) => {
             }
         };
 
-        const datas = await axios.post(' https://3.86.184.176/api/v1/company/allowance', {
+        const datas = await axios.post(' http://54.145.254.42:4000/api/v1/company/allowance', {
             data: data
         }, config);
         dispatch({

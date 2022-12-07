@@ -38,11 +38,21 @@ const ViewRateCategory = Loadable(lazy(() => import('views/rateCategory/viewRate
 const AddUser = Loadable(lazy(() => import('views/roles/addUser')));
 const ManageUser = Loadable(lazy(() => import('views/roles/manageUser')));
 const CompanyProfile = Loadable(lazy(() => import('views/companyProfile/company-profile')));
+const CompanyProfileNew = Loadable(lazy(() => import('views/companyProfile/companyProfile')));
 
+//Reports Route
+const WeeklyOffReport = Loadable(lazy(() => import('views/report/weeklyOff')));
+const AttendanceReport = Loadable(lazy(() => import('views/report/attendanceReport')));
+const AbsenteesReport = Loadable(lazy(() => import('views/report/absenteesReport')));
+const LeaveReport = Loadable(lazy(() => import('views/report/leaveReport')));
+const CompensatoryOffReport =  Loadable(lazy(() => import('views/report/compensatoryOff')));
 
-//Test Page
-const SamplePage =  Loadable(lazy(() => import('views/sample-page/samplePage')));
+//Shift Routing
+const ManageShift = Loadable(lazy(() => import('views/shift/manageShift')));
+
 // ==============================|| MAIN ROUTING ||============================== //
+
+
 
 const MainRoutes = {
     path: '/',
@@ -133,12 +143,36 @@ const MainRoutes = {
             element: <CompanyProfile />
         },
         {
+            path: '/company-profile-new',
+            element: <CompanyProfileNew />
+        },
+        {
             path: '/rate-category/view-rate-category',
             element: <ViewRateCategory />
         },
         {
-            path: '/sample-page',
-            element: <SamplePage />
+            path: '/report/weeklyoff-report',
+            element: <WeeklyOffReport />
+        },
+        {
+            path: '/report/attendance-report',
+            element: <AttendanceReport />
+        },
+        {
+            path: '/report/absentees-report',
+            element: <AbsenteesReport />
+        },
+        {
+            path: '/report/leave-report',
+            element: <LeaveReport />
+        },
+        {
+            path: '/report/compensatory-off-report',
+            element: <CompensatoryOffReport />
+        },
+        {
+            path: '/shift/manage-shift',
+            element: <ManageShift />
         }
     ]
 };

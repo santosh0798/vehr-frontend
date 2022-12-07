@@ -15,7 +15,10 @@ import {
     OVERTIME_ATTENDENCE_SUCCESS,
     UPDATE_ALLOWANCE_FAIL,
     UPDATE_ALLOWANCE_REQUEST,
-    UPDATE_ALLOWANCE_SUCCESS
+    UPDATE_ALLOWANCE_SUCCESS,
+    UPDATE_OVERTIME_STATUS_FAIL,
+    UPDATE_OVERTIME_STATUS_REQUEST,
+    UPDATE_OVERTIME_STATUS_SUCCESS
 } from '../constant/attendenceConstant';
 import { CLEAR_ERRORS } from '../constant/userConstant';
 
@@ -32,7 +35,7 @@ export const addAttendence = (userData) => async (dispatch) => {
             }
         };
 
-        const { data } = await axios.post(' https://3.86.184.176/api/v1/employee/attendance', userData, config);
+        const { data } = await axios.post(' http://54.145.254.42:4000/api/v1/employee/attendance', userData, config);
 
         dispatch({
             type: ADD_ATTENDENCE_SUCCESS,
@@ -52,7 +55,7 @@ export const myAttendence = (page, month, year) => async (dispatch) => {
     try {
         dispatch({ type: GET_ATTENDENCE_REQUEST });
 
-        const x = await axios.get(` https://3.86.184.176/api/v1/employee/attendance/mylist/${month + 1}/${year}?page=${page}`, {
+        const x = await axios.get(` http://54.145.254.42:4000/api/v1/employee/attendance/mylist/${month + 1}/${year}?page=${page}`, {
             withCredentials: true
         });
 
@@ -75,7 +78,7 @@ export const updateAllowances = (data, employee, attendanceYear, attendanceMonth
     try {
         dispatch({ type: UPDATE_ALLOWANCE_REQUEST });
 
-        const x = await axios.post(` https://3.86.184.176/api/v1/employee/allowances`, {
+        const x = await axios.post(` http://54.145.254.42:4000/api/v1/employee/allowances`, {
             data: data, employee: employee, attendanceYear: attendanceYear, attendanceMonth: attendanceMonth
         }, {
             withCredentials: true
@@ -104,7 +107,7 @@ export const myEmployeeAttendence = (employee, month, year) => async (dispatch) 
     try {
         dispatch({ type: GET_SINGLE_ATTENDENCE_REQUEST });
 
-        const { data } = await axios.get(` https://3.86.184.176/api/v1/employee/attendance/mylist/${month + 1}/${year}/${employee}`, {
+        const { data } = await axios.get(` http://54.145.254.42:4000/api/v1/employee/attendance/mylist/${month + 1}/${year}/${employee}`, {
             withCredentials: true
         });
 
@@ -132,7 +135,7 @@ export const myEmployeeAttendenceOvertime = (employee, attendanceMonth, attendan
             }
         };
         const { data } = await axios.post(
-            ` https://3.86.184.176/api/v1/employee/attendance/updateovertime`,
+            ` http://54.145.254.42:4000/api/v1/employee/attendance/updateovertime`,
             { employee, attendanceMonth, attendanceYear, overtime, date },
             config
         );
@@ -144,6 +147,36 @@ export const myEmployeeAttendenceOvertime = (employee, attendanceMonth, attendan
     } catch (error) {
         dispatch({
             type: OVERTIME_ATTENDENCE_FAIL,
+            payload: error.response
+        });
+    }
+};
+
+
+// post overtime status
+export const myEmployeeAttendenceOvertimeStatus = (employee, attendanceMonth, attendanceYear, isOvertime, date) => async (dispatch) => {
+    axios.defaults.withCredentials = true;
+    try {
+        dispatch({ type: UPDATE_OVERTIME_STATUS_REQUEST });
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                withCredentials: true
+            }
+        };
+        const { data } = await axios.post(
+            ` http://54.145.254.42:4000/api/v1/employee/attendance/updateovertimestatus`,
+            { employee, attendanceMonth, attendanceYear, isOvertime, date },
+            config
+        );
+        console.log(data);
+        dispatch({
+            type: UPDATE_OVERTIME_STATUS_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_OVERTIME_STATUS_FAIL,
             payload: error.response
         });
     }

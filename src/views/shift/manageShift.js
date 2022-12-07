@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // material ui import
-import { Alert, Button, FormControl, InputLabel, MenuItem, Select, Snackbar, Typography } from '@mui/material';
+import {Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, Snackbar, Typography} from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
@@ -17,7 +17,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import axios from 'axios';
 import { styled } from '@mui/material/styles';
 
-// ==============================|| ADD ATTENDENCE PAGE ||============================== //
+// ==============================|| ADD ATTENDANCE PAGE ||============================== //
 
 const UploadButton = styled(Button)(({ theme }) => ({
     background: '#009FBE',
@@ -31,18 +31,16 @@ const UploadButton = styled(Button)(({ theme }) => ({
     width: '220px'
 }));
 
-const AddAttendance = () => {
+const ManageShift = () => {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
     const [disabled, setDisabled] = useState(true);
     const { error, orders } = useSelector((state) => state.myEmployee);
     const [date, setDate] = useState(new Date());
     const [csvtype, setcsvtype] = useState(1);
-
     const [largestPage, setLargestPage] = useState(0);
     const [selectToday, setSelectToday] = useState(false);
     console.log(orders);
-
     const [successes, setsuccess] = useState('success');
     const [text, settext] = useState('Successfully Added!');
     const [state, setState] = React.useState({
@@ -161,29 +159,28 @@ const AddAttendance = () => {
     return (
         <StyledMainCard>
             <AttendanceTopbar
-                name="Add Attendance"
+                name="Manage Shift"
                 search="true"
                 date="true"
-                filter="true"
-                today="true"
+                weeklyOff="true"
                 isshow={1}
                 parentCallback2={handleSwitch}
             />
             <hr color="#fdfdfd"/>
             <div style={{ float: 'right', display: 'flex' }}>
-                <FormControl fullWidth style={{ marginRight: '30px' }}>
-                    <InputLabel id="demo-simple-select-label">CSV type</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={csvtype}
-                        label="Csv Type"
-                        onChange={handleCsvChange}
-                    >
-                        <MenuItem value={1}>Regular attendance</MenuItem>
-                        <MenuItem value={2}>Bulk attendance</MenuItem>
-                    </Select>
-                </FormControl>
+                {/*<FormControl fullWidth style={{ marginRight: '30px' }}>*/}
+                {/*    <InputLabel id="demo-simple-select-label">CSV type</InputLabel>*/}
+                {/*    <Select*/}
+                {/*        labelId="demo-simple-select-label"*/}
+                {/*        id="demo-simple-select"*/}
+                {/*        value={csvtype}*/}
+                {/*        label="Csv Type"*/}
+                {/*        onChange={handleCsvChange}*/}
+                {/*    >*/}
+                {/*        <MenuItem value={1}>Regular attendance</MenuItem>*/}
+                {/*        <MenuItem value={2}>Bulk attendance</MenuItem>*/}
+                {/*    </Select>*/}
+                {/*</FormControl>*/}
                 <label
                     htmlFor="form_input"
                     className="form_label"
@@ -209,7 +206,7 @@ const AddAttendance = () => {
 
                     <FileUploadIcon className="form_icon" style={{ marginRight: '5px', color: '#000000' }} />
                     <span className="form_text" style={{ fontWeight: 400, fontSize: '18px', color: '#000000' }}>
-                        Upload CSV File
+                        Upload Monthly Shift File
                     </span>
                 </label>
                 <UploadButton onClick={onFileUpload} type="submit">
@@ -224,11 +221,12 @@ const AddAttendance = () => {
                                 <StyledTableCell align="center">#</StyledTableCell>
                                 <StyledTableCell align="center">UAN</StyledTableCell>
                                 <StyledTableCell align="center">Name</StyledTableCell>
-                                <StyledTableCell align="center">Joining Date</StyledTableCell>
                                 <StyledTableCell align="center">Contact</StyledTableCell>
                                 <StyledTableCell align="center">Designation</StyledTableCell>
                                 <StyledTableCell align="center">Mode of wages</StyledTableCell>
-                                <StyledTableCell align="center">Mark Attendance</StyledTableCell>
+                                <StyledTableCell align="center">Current Shift</StyledTableCell>
+                                <StyledTableCell align="center">Action</StyledTableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -242,20 +240,25 @@ const AddAttendance = () => {
                                     </TableCell>
                                     <TableCell align="center">{item?.companyDetails?.UAN}</TableCell>
                                     <TableCell align="center">{item?.personalDetails?.fullName}</TableCell>
-                                    <TableCell align="center">{formatDate(item?.companyDetails?.joiningDate)}</TableCell>
                                     <TableCell align="center">{item?.personalDetails?.mobileNo}</TableCell>
                                     <TableCell align="center">{item?.companyDetails?.designation}</TableCell>
                                     <TableCell align="center">{item?.companyDetails?.selectWages}</TableCell>
+                                    <TableCell align="center">Shift A</TableCell>
                                     <TableCell align="center">
-                                        <BasicSwitch
-                                            disabled={disabled}
-                                            data={item}
-                                            largest={largestPage}
-                                            page={page}
-                                            date={date}
-                                            index={index}
-                                            selectToday={selectToday}
-                                        />
+                                        <Box sx={{ minWidth: 120 }}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Select Action</InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    label="Select Action"
+                                                    // onChange={handleChange}
+                                                >
+                                                    <MenuItem value="OT">Shift A</MenuItem>
+                                                    <MenuItem value="CO">Shift B</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
                                     </TableCell>
                                 </StyledTableRow>
                             ))}
@@ -284,4 +287,4 @@ const AddAttendance = () => {
         </StyledMainCard>
     );
 };
-export default AddAttendance;
+export default ManageShift;
